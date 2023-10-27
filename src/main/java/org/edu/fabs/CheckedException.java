@@ -1,8 +1,10 @@
 package org.edu.fabs;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -16,8 +18,16 @@ public class CheckedException {
         String nomeDoArquivo = "romances-blake-crouch.txt";
         try {
             imprimirArquivoNoConsole(nomeDoArquivo);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "revise o nome do arquivo que voce deseja imprimir" + e.getCause());
+        }
+        catch (IOException e) {
+            // e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "ocorreu um erro insesperado! entre em contato com o suporte " + e.getCause());
+        } finally {
+            System.out.println("chegpu no finally");
         }
 
         System.out.println("apesar da exception ou não, o programa continua...");
