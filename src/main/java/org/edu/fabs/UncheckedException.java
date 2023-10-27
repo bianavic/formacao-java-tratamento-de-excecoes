@@ -11,22 +11,28 @@ public class UncheckedException {
          * onde farei o try catch
          */
 
-        String a = JOptionPane.showInputDialog("Numerador: ");
-        String b = JOptionPane.showInputDialog("Denominador: ");
+        // criar um laco para que, caso haja execao, o usuario possa tentar novo input sem interromper a aplicacao
+        // até q ele coloque uma entrada valida
+        boolean continueLooping = true;
+        do {
+            String a = JOptionPane.showInputDialog("Numerador: ");
+            String b = JOptionPane.showInputDialog("Denominador: ");
 
-        try {
-            int resultado = dividir(Integer.parseInt(a), Integer.parseInt(b));
-            System.out.println("Resultado: "+ resultado);
-        } catch (NumberFormatException e) {
-            // esta msg para o usuario é só como exe, nao uma recomendacao
-            JOptionPane.showMessageDialog(null, "entrada inválida, informe um numero inteiro " + e.getMessage());
+            try {
+                int resultado = dividir(Integer.parseInt(a), Integer.parseInt(b));
+                System.out.println("Resultado: "+ resultado);
+                continueLooping = false;
+            } catch (NumberFormatException e) {
+                // esta msg para o usuario é só como exe, nao uma recomendacao
+                JOptionPane.showMessageDialog(null, "entrada inválida, informe um numero inteiro " + e.getMessage());
 //            e.printStackTrace(); // -> pede para imprimir o erro
-        } catch (ArithmeticException e) {
-            JOptionPane.showMessageDialog(null, "impossivel dividir um numero por zero " + e.getMessage());
-        }
-        finally {
-            System.out.println("chegou no finally...");
-        }
+            } catch (ArithmeticException e) {
+                JOptionPane.showMessageDialog(null, "impossivel dividir um numero por zero " + e.getMessage());
+            }
+            finally {
+                System.out.println("chegou no finally...");
+            }
+        } while (continueLooping);
 
         System.out.println("o código continua... ");
     }
